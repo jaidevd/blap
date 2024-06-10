@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "puppeteer": "^22.10.0",
+    "yargs": "^17.7.2"
+  }
+}
