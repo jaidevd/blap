@@ -165,4 +165,5 @@ BROWSER_DATA/*
 .secrets.yaml
 
 node_modules/*
-python-kb-25/*
+*-kb-*/*
+data/*

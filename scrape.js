@@ -77,7 +77,7 @@ puppeteer.launch({headless: true, userDataDir: "BROWSER_DATA"}).then(async (brow
   for (const topic_id of topics) {
     let posts = await getTopicPost(page, topic_id);
     await fs.writeJson(`${course_dir}/${topic_id}.json`, posts, { spaces: 2 });
-    await delay(1000);
+    await delay(800);
   }
 
   await browser.close()
