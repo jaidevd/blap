@@ -7,7 +7,7 @@ const argv = yargs(hideBin(process.argv)).argv;
 const course_slug = argv.slug;
 const course_id = argv.id;
 const since = argv.since ? new Date(argv.since) : new Date(0);
-const course_dir = `${course_slug}-${course_id}`
+const course_dir = argv.outdir ? argv.outdir : `${course_slug}-${course_id}`
 
 fs.ensureDir(course_dir)
 
@@ -74,9 +74,19 @@ puppeteer.launch({headless: true, userDataDir: "BROWSER_DATA"}).then(async (brow
   console.log("Getting posts...")
   let page = await browser.newPage()
 
+  let posts;
+
   for (const topic_id of topics) {
-    let posts = await getTopicPost(page, topic_id);
-    await fs.writeJson(`${course_dir}/${topic_id}.json`, posts, { spaces: 2 });
+    let outpath = `${course_dir}/${topic_id}.json`
+    if (await fs.pathExists(outpath)) {
+      continue
+    }
+    if (!argv.full) {
+      posts = await getTopicPost(page, topic_id);
+    } else {
+      posts = await getJSON(page, `${topicURL}${topic_id}.json`)
+    }
+    await fs.writeJson(outpath, posts, { spaces: 2 });
     await delay(800);
   }
 

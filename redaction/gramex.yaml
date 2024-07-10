@@ -1,0 +1,20 @@
+variables:
+  DATA_PATH: $YAMLPATH/../data/discourse-redacted.parquet
+url:
+  home:
+    pattern: /$YAMLURL/
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/index.html
+  nextfetch:
+    pattern: /$YAMLURL/sample
+    handler: FunctionHandler
+    kwargs:
+      function: redact.pick
+  update-selection:
+    pattern: /$YAMLURL/redact/(\d+)
+    handler: FunctionHandler
+    kwargs:
+      function: redact.redact
+      xsrf_cookies: false
+

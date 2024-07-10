@@ -167,3 +167,4 @@ BROWSER_DATA/*
 node_modules/*
 *-kb-*/*
 data/*
+python-full/*
